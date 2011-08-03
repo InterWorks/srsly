@@ -7,8 +7,7 @@
                          __/ |  _/ |     
                         |___/  |__/      
 
-**srsly.js - _Seriously_ sweet JavaScript**
-http://github.com/interworks/srsly
+**srsly.js - _Seriously_ sweet JavaScript** - http://github.com/interworks/srsly
 
 ## What you should know
 
@@ -29,32 +28,34 @@ Provides a simple way to expose events as properties on your objects. Each event
 
 #### Example
 
-    // Require Srsly.Event, if we're on the server, and it's not already present.
-    if (!Srsly && (typeof Srsly !== 'undefined')) Srsly = require('Srsly.Event.js');
+```javascript
+// Require Srsly.Event, if we're on the server, and it's not already present.
+if (!Srsly && (typeof Srsly !== 'undefined')) Srsly = require('Srsly.Event.js');
 
-    function Person(name) {
-      // The value passed to the constructor will be used
-      // as the context ('this' value) when calling the listeners.
-      var onSpeak = new Srsly.Event(name);
+function Person(name) {
+  // The value passed to the constructor will be used
+  // as the context ('this' value) when calling the listeners.
+  var onSpeak = new Srsly.Event(name);
 
-      this.speak = function(words) {
-        onSpeak.fire(words);
-      }
+  this.speak = function(words) {
+    onSpeak.fire(words);
+  }
 
-      // Return the public 'hook' interface of the event.
-      this.onSpeak = onSpeak.hook;
-    };
+  // Return the public 'hook' interface of the event.
+  this.onSpeak = onSpeak.hook;
+};
 
-    var joshua = new Person('Joshua');
-    joshua.onSpeak(function (words) {
-      // The value of 'this' will be the event's sender,
-      // which is the 'Joshua' in this case.
-      alert(this + ' says ' + words);
-    });
-    joshua.speak("Hello!"); // will show alert('Joshua says Hello!')
+var joshua = new Person('Joshua');
+joshua.onSpeak(function (words) {
+  // The value of 'this' will be the event's sender,
+  // which is the 'Joshua' in this case.
+  alert(this + ' says ' + words);
+});
+joshua.speak("Hello!"); // will show alert('Joshua says Hello!')
 
-    // joshua.onSpeak.unhook(func); // Remove a specific listener.
-    // joshua.onSpeak.clear(); // Remove all listeners.
+// joshua.onSpeak.unhook(func); // Remove a specific listener.
+// joshua.onSpeak.clear(); // Remove all listeners.
+```
 
 ## Contributors
 
