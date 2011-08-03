@@ -49,9 +49,9 @@ var joshua = new Person('Joshua');
 joshua.onSpeak(function (words) {
   // The value of 'this' will be the event's sender,
   // which is the 'Joshua' in this case.
-  alert(this + ' says ' + words);
+  console.log(this + ' says ' + words);
 });
-joshua.speak("Hello!"); // will show alert('Joshua says Hello!')
+joshua.speak("Hello!"); // will show "Joshua says Hello!"
 
 // joshua.onSpeak.unhook(func); // Remove a specific listener.
 // joshua.onSpeak.clear(); // Remove all listeners.
