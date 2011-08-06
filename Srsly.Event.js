@@ -1,22 +1,4 @@
-﻿function applyDefaults(options, defaults) {
-  if (typeof options === 'undefined' || !options) {
-    options = {};
-  }
-
-  if (defaults) {
-    for (var prop in defaults) {
-      if (defaults.hasOwnProperty(prop)) {
-        if (typeof options[prop] === 'undefined') {
-          options[prop] = defaults[prop];
-        }
-      }
-    }
-  }
-
-  return options;
-}
-
-(function () {
+﻿(function () {
   // Protect 'undefined' from being 'redefined'.
   var undefined;
 
@@ -31,8 +13,11 @@
     Srsly = root.Srsly = root.Srsly || {};
   }
 
+  // Require Srsly.Belt, if we're on the server, and it's not already present.
+  if (!Srsly.Belt && (typeof require !== 'undefined')) Srsly.Belt = require('./lib/Srsly.Belt.js').Belt;
+
   // Provides a simple way to expose events as properties on your objects.
-  // No dependencies. Works with Node.js.
+  // Depends on Srsly.Belt. Works with Node.js.
   // Example:
   /*
     // Require Srsly.Event, if we're on the server, and it's not already present.
@@ -95,7 +80,7 @@
     // Public event hook that should be exposed in your object's public interface.
     // Provides consumers of your object a way to add listeners to this event.
     this.hook = function (func, options) {
-      options = applyDefaults(options, {
+      options = Srsly.Belt.applyDefaults(options, {
         // True or false whether this listener should only fire once.
         single: false,
         // Scope the listener should be executed in. (Value of 'this' inside the listener function.)
