@@ -1,4 +1,22 @@
-﻿(function () {
+﻿function applyDefaults(options, defaults) {
+  if (typeof options === 'undefined' || !options) {
+    options = {};
+  }
+
+  if (defaults) {
+    for (var prop in defaults) {
+      if (defaults.hasOwnProperty(prop)) {
+        if (typeof options[prop] === 'undefined') {
+          options[prop] = defaults[prop];
+        }
+      }
+    }
+  }
+
+  return options;
+}
+
+(function () {
   // Protect 'undefined' from being 'redefined'.
   var undefined;
 
@@ -35,7 +53,7 @@
 
     var joshua = new Person('Joshua');
     joshua.onSpeak(function (words) {
-      // The value of 'this' will be the event's sender,
+      // The value of 'this' will be the event's default scope,
       // which is the 'Joshua' in this case.
       console.log(this + ' says ' + words);
     });
@@ -44,26 +62,58 @@
     // joshua.onSpeak.unhook(func); // Remove a specific listener.
     // joshua.onSpeak.clear(); // Remove all listeners.
   */
-  Srsly.Event = function (sender) {
+  Srsly.Event = function (defaultScope) {
     var listeners = [];
 
     // Calls all of this event's listeners with any arguments passed.
     this.fire = function () {
+
+      // Collect listeners that should be removed after this firing.
+      var removeListeners;
+
       for (var i = 0; i < listeners.length; i++) {
-        listeners[i].apply(sender, arguments);
+        var listener = listeners[i];
+
+        // Call the listener function with this event's scope and any arguments passed into the fire().
+        listener.func.apply(listener.options.scope, arguments);
+        
+        // If this listener should only be called once, then unhook it.
+        if (listener.options.single === true) {
+          removeListeners = removeListeners || [];
+          removeListeners.push(listener);
+        }
+      }
+
+      // Unhook all listeners that shouldn't be called again.
+      if (removeListeners) {
+        for (var i = 0; i < removeListeners.length; i++) {
+          this.hook.unhook(removeListeners[i].func);
+        }
       }
     };
 
     // Public event hook that should be exposed in your object's public interface.
-    // Provides consumers of your object a way to add listeners to this event. 
-    this.hook = function (func) {
-      listeners.push(func);
+    // Provides consumers of your object a way to add listeners to this event.
+    this.hook = function (func, options) {
+      options = applyDefaults(options, {
+        // True or false whether this listener should only fire once.
+        single: false,
+        // Scope the listener should be executed in. (Value of 'this' inside the listener function.)
+        scope: defaultScope
+      });
+
+      listeners.push({
+        func: func,
+        options: options
+      });
     };
 
     // Removes the passed function from this event's listeners.
+    // Assumes that the passed function only appears in the listeners collection ONCE!
     this.hook.unhook = function (func) {
       for (var i = 0; i < listeners.length; i++) {
-        if (listeners[i] === func) {
+        if (listeners[i].func === func) {
+          console.log('removing listener');
           listeners.splice(i, 1);
         }
       }

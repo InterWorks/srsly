@@ -7,10 +7,10 @@ describe("Srsly.Event", function() {
   });
 
   describe("when firing the event", function() {
-    it("should call listeners with the expected context ('this' value)", function() {
+    it("should call listeners with the default scope ('this' value) when a more specific scope is not given", function() {
       // arrange
-      var context = {};
-      ev = new Srsly.Event(context);
+      var defaultContext = {};
+      ev = new Srsly.Event(defaultContext);
 
       var calledContext;
       ev.hook(function() {
@@ -21,7 +21,42 @@ describe("Srsly.Event", function() {
       ev.fire();
 
       // assert
-      expect(calledContext).toBe(context);
+      expect(calledContext).toBe(defaultContext);
+    });
+
+    it("should call listeners with the given scope", function() {
+      // arrange
+      var specificContext = {};
+
+      var calledContext;
+      ev.hook(function() {
+        calledContext = this;
+      }, { scope: specificContext });
+
+      // act
+      ev.fire();
+
+      // asset
+      expect(calledContext).toBe(specificContext);
+    });
+
+    it("should call listeners with arguments passed to the fire function", function() {
+      // arrange
+      var fireArg1 = 1;
+      var fireArg2 = 2;
+
+      var listenerArg1, listenerArg2;
+      ev.hook(function(arg1, arg2) {
+        listenerArg1 = arg1;
+        listenerArg2 = arg2;
+      });
+
+      // act
+      ev.fire(fireArg1, fireArg2);
+
+      // assert
+      expect(listenerArg1).toBe(fireArg1);
+      expect(listenerArg2).toBe(fireArg2);
     });
 
     it("should call all listeners", function() {
@@ -38,6 +73,22 @@ describe("Srsly.Event", function() {
       // assert
       expect(listenerOneCalled).toBe(true);
       expect(listenerTwoCalled).toBe(true);
+    });
+
+    it("should only call 'single fire' listeners once", function() {
+      // arrange
+      var listener1CallCount = 0;
+      var listener2CallCount = 0;
+      ev.hook(function() { listener1CallCount++; }, { single: true });
+      ev.hook(function() { listener2CallCount++; }, { single: false });
+
+      // act
+      ev.fire();
+      ev.fire();
+
+      // assert
+      expect(listener1CallCount).toBe(1);
+      expect(listener2CallCount).toBe(2);
     });
   });
 
