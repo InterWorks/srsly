@@ -14,7 +14,7 @@
   }
 
   // Require Srsly.Belt, if we're on the server, and it's not already present.
-  if (!Srsly.Belt && (typeof require !== 'undefined')) Srsly.Belt = require('./lib/Srsly.Belt.js').Belt;
+  if (!Srsly.Belt && (typeof require !== 'undefined')) Srsly.Belt = require('./Srsly.Belt.js').Belt;
 
   // Provides a simple way to expose events as properties on your objects.
   // Depends on Srsly.Belt. Works with Node.js.
