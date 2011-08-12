@@ -1,9 +1,6 @@
 ﻿/*jslint node: true, vars: true, indent: 2 */
-(function () {
+(function (undefined) {
   "use strict";
-
-  // Protect 'undefined' from being redefined.
-  var undefined;
 
   // Save a reference to the global object.
   var root = this;

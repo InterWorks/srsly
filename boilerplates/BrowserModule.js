@@ -1,9 +1,6 @@
 ﻿/*jslint browser: true, vars: true, indent: 2 */
-(function () {
+(function (undefined) {
   "use strict";
-
-  // Protect 'undefined' from being redefined.
-  var undefined;
 
   // The top-level namespace.
   var MY_NAMESPACE = window.MY_NAMESPACE = window.MY_NAMESPACE || {};
