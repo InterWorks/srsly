@@ -1,4 +1,7 @@
-﻿(function () {
+﻿/*jslint node: true, vars: true, indent: 2 */
+(function () {
+  "use strict";
+
   // Protect 'undefined' from being redefined.
   var undefined;
 
@@ -26,4 +29,4 @@
     // todo: put instance properties and functions here
     // ------------------------------------------------
   };
-}).call(this);
+}.call(this));
