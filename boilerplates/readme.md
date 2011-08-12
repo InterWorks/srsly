@@ -16,3 +16,8 @@ JavaScript files. The goal is to provide you with a barebones, best practice
 starting point.
 
 If you see something that we are missing then please let us know!
+
+## License
+
+Do what you want with it. _Seriously_, this stuff is public knowledge.
+Use it. Share it.
