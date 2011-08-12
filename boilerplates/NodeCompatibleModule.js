@@ -1,17 +1,10 @@
-﻿/*jslint node: true, vars: true, indent: 2 */
+﻿/*jslint node: true, indent: 2 */
 (function (undefined) {
   "use strict";
 
-  // Save a reference to the global object.
-  var root = this;
-
   // The top-level namespace. Exported for both CommonJS and the browser.
-  var MY_NAMESPACE;
-  if (typeof exports !== 'undefined') {
-    MY_NAMESPACE = exports;
-  } else {
-    MY_NAMESPACE = root.MY_NAMESPACE = root.MY_NAMESPACE || {};
-  }
+  var MY_NAMESPACE = (typeof exports !== 'undefined')
+                       ? exports : this.MY_NAMESPACE = this.MY_NAMESPACE || {};
 
   // ------------------------------------------------------------------------
   // note: this is how you would require a dependency when running in Node.js

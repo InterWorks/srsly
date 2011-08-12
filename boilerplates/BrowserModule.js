@@ -1,4 +1,4 @@
-﻿/*jslint browser: true, vars: true, indent: 2 */
+﻿/*jslint browser: true, indent: 2 */
 (function (undefined) {
   "use strict";
 
