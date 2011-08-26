@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>srsly.js</id>
+    <title>srsly.js 0.1.0</title>
+    <version>0.1.0</version>
+    <authors>Joshua Poehls</authors>
+    <owners>Joshua Poehls</owners>
+    <licenseUrl>https://github.com/interworks/srsly/blob/master/readme.md</licenseUrl>
+    <projectUrl>https://github.com/interworks/srsly</projectUrl>
+    <!-- <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl> -->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <!-- shown on the package detail page in the gallery -->
+    <description>
+      srsly.js is a loose bundle of JavaScript goodness put together by the fine folks at InterWorks, Inc..
+
+      This isn't a framework. Take what you want, leave the rest for later. Dependencies are kept to a minimum and Node.js is supported when it makes sense.
+
+      It rocks, it's free - so treat yourself to some JS love, on us.
+    </description>
+    <!-- shown in the search results in the gallery -->
+    <summary>JavaScript helpers and boilerplates guaranteed to improve your quality of life.</summary>
+    <tags>JavaScript Node.js</tags>
+    <!-- <dependencies>
+      <dependency id="SampleDependency" version="1.0" />
+    </dependencies> -->
+  </metadata>
+  <files>
+    <file src="Srsly.Belt.js" target="Content\Scripts\Srsly.Belt-0.1.0.js" />
+    <file src="Srsly.Event.js" target="Content\Scripts\Srsly.Event-0.1.0.js" />
+    <file src="boilerplates\BrowserModule.js" target="Content\Scripts\Boilerplates\BrowserModule-0.1.0.js" />
+    <file src="boilerplates\NodeCompatibleModule.js" target="Content\Scripts\Boilerplates\NodeCompatibleModule-0.1.0.js" />
+  </files>
+</package>
